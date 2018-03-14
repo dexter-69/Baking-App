@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Baking App</string>
+    <string name="recipe_thumbnail_image">Recipe Thumbnail Image</string>
+    <string name="ingredient_title">Tap Here For Ingrediets</string>
+    <string name="short_description_placeholder">Short Description for Step</string>
+    <string name="quantity">Quantity</string>
+    <string name="measure">Measure</string>
+    <string name="ingredient">Ingredient</string>
+    <string name="no_ingredients_found">No Ingredient Found</string>
+    <string name="ingredients">Ingredients</string>
+</resources>
