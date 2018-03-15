@@ -61,6 +61,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowHomeEnabled(true);
+            actionBar.setTitle("");
         }
 
         if(intent.hasExtra("cr")) {
