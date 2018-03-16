@@ -13,8 +13,7 @@
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
 
-        <include
-            layout="@layout/toolbar" />
+        <include layout="@layout/toolbar" />
 
     </android.support.design.widget.AppBarLayout>
 
@@ -32,10 +31,10 @@
             tools:listitem="@layout/recipe_list_content" />
 
         <ProgressBar
+            android:id="@+id/loading_indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:id="@+id/loading_indicator"/>
+            android:layout_gravity="center" />
     </FrameLayout>
 
 </android.support.design.widget.CoordinatorLayout>

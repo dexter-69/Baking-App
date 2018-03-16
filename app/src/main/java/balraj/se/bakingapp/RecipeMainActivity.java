@@ -1,9 +1,7 @@
 package balraj.se.bakingapp;
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -13,15 +11,8 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +30,8 @@ import retrofit2.Response;
 
 public class RecipeMainActivity extends AppCompatActivity implements RecipeAdapter.OnRecipeClickListener {
 
+    private static final String RECYCLER_VIEW_STATE_KEY = "state_rv";
+    private static final String RECIPE_LIST_KEY = "list_key";
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.recipe_rv)
@@ -47,9 +40,13 @@ public class RecipeMainActivity extends AppCompatActivity implements RecipeAdapt
     RecyclerView.LayoutManager mLayoutManager;
     @BindView(R.id.loading_indicator)
     ProgressBar loadingIndicator;
-    private static final String RECYCLER_VIEW_STATE_KEY = "state_rv";
-    private static final String RECIPE_LIST_KEY = "list_key";
     private Parcelable listState;
+
+    public static float getScreenWidth() {
+        float px = Resources.getSystem().getDisplayMetrics().widthPixels;
+        float density = Resources.getSystem().getDisplayMetrics().density;
+        return px / density;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,13 +55,13 @@ public class RecipeMainActivity extends AppCompatActivity implements RecipeAdapt
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
-        if(actionBar != null) {
+        if (actionBar != null) {
 
         }
         recipeAdapter = new RecipeAdapter(this, new ArrayList<Recipe>(), this);
         setupLayoutManager();
         setupRecyclerView();
-        if(savedInstanceState != null) {
+        if (savedInstanceState != null) {
             ArrayList<Recipe> recipes = savedInstanceState.getParcelableArrayList(RECIPE_LIST_KEY);
             listState = savedInstanceState.getParcelable(RECYCLER_VIEW_STATE_KEY);
             recipeAdapter.setRecipeList(recipes);
@@ -98,7 +95,6 @@ public class RecipeMainActivity extends AppCompatActivity implements RecipeAdapt
         this.startActivity(intent);
     }
 
-
     private void setupRecyclerView() {
         recipeRecyclerView.setHasFixedSize(true);
         recipeRecyclerView.setAdapter(recipeAdapter);
@@ -122,17 +118,11 @@ public class RecipeMainActivity extends AppCompatActivity implements RecipeAdapt
 
     private void setupLayoutManager() {
         float screenWidth = getScreenWidth();
-        if(screenWidth >= 700) {
+        if (screenWidth >= 700) {
             mLayoutManager = new GridLayoutManager(this, 3);
         } else {
             mLayoutManager = new LinearLayoutManager(this);
         }
-    }
-
-    public static float getScreenWidth() {
-        float px =  Resources.getSystem().getDisplayMetrics().widthPixels;
-        float density = Resources.getSystem().getDisplayMetrics().density;
-        return px / density;
     }
 
 }

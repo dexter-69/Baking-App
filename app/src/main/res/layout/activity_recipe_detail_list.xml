@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
@@ -13,8 +12,7 @@
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
 
-        <include
-            layout="@layout/toolbar"/>
+        <include layout="@layout/toolbar" />
 
     </android.support.design.widget.AppBarLayout>
 
@@ -25,6 +23,7 @@
         android:layout_margin="4dp"
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
         <android.support.v7.widget.CardView
             android:id="@+id/ingredient_card"
             android:layout_width="match_parent"
@@ -32,17 +31,19 @@
             android:layout_gravity="center"
             android:layout_margin="@dimen/card_margin"
             android:layout_marginBottom="4dp"
-            card_view:cardCornerRadius="@dimen/card_view_radius"
-            card_view:cardElevation="@dimen/card_view_elevation"
             android:alpha="0.9"
-            android:onClick="showIngredients">
+            android:onClick="showIngredients"
+            card_view:cardCornerRadius="@dimen/card_view_radius"
+            card_view:cardElevation="@dimen/card_view_elevation">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="@string/ingredient_title"
+                android:layout_gravity="center"
                 android:padding="8dp"
-                android:layout_gravity="center"/>
+                android:text="@string/ingredient_title" />
         </android.support.v7.widget.CardView>
+
         <include layout="@layout/recipe_detail_list" />
     </LinearLayout>
 

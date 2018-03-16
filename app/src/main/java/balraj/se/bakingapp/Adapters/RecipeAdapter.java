@@ -28,8 +28,8 @@ import butterknife.ButterKnife;
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeAdapterViewHolder> {
 
     private final OnRecipeClickListener onRecipeClickListener;
-    private List<Recipe> recipeList;
     private final Context context;
+    private List<Recipe> recipeList;
 
     public RecipeAdapter(OnRecipeClickListener onRecipeClickListener, List<Recipe> recipeList,
                          Context context) {
@@ -41,7 +41,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeAdap
     @Override
     public RecipeAdapter.RecipeAdapterViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         //Context context = parent.getContext();
-        View view = LayoutInflater.from(this.context).inflate(R.layout.recipe_list_content, parent,false);
+        View view = LayoutInflater.from(this.context).inflate(R.layout.recipe_list_content, parent, false);
         return new RecipeAdapterViewHolder(view);
     }
 
@@ -63,13 +63,13 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeAdap
                 .into(recipeThumnail);
     }
 
+    public ArrayList<Recipe> getRecipeList() {
+        return (ArrayList<Recipe>) recipeList;
+    }
+
     public void setRecipeList(final List<Recipe> recipeList) {
         this.recipeList = recipeList;
         notifyDataSetChanged();
-    }
-
-    public ArrayList<Recipe> getRecipeList() {
-        return (ArrayList<Recipe>) recipeList;
     }
 
     @Override
@@ -82,8 +82,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeAdap
     }
 
     public class RecipeAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        @BindView(R.id.recipe_name_tv) TextView recipeNameTextView;
-        @BindView(R.id.thumbnail) ImageView recipeThumbnail;
+        @BindView(R.id.recipe_name_tv)
+        TextView recipeNameTextView;
+        @BindView(R.id.thumbnail)
+        ImageView recipeThumbnail;
 
         RecipeAdapterViewHolder(View itemView) {
             super(itemView);

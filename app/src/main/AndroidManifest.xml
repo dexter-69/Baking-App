@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="balraj.se.bakingapp" >
+    package="balraj.se.bakingapp">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
@@ -8,7 +10,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".RecipeMainActivity"
             android:launchMode="singleTop">
@@ -20,6 +22,25 @@
         </activity>
         <activity android:name=".UI.RecipeDetailActivity" />
         <activity android:name=".UI.RecipeStepDetailActivity" />
+
+        <service
+            android:name=".Widget.BakingListWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+        <service android:name=".Widget.BakingUpdateService" />
+
+        <receiver
+            android:name=".Widget.BakingWidgetProvider"
+            android:icon="@drawable/ic_launcher_foreground">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE2" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/baking_widget_info" />
+        </receiver>
     </application>
 
 </manifest>

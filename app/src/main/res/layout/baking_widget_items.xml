@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="4dp"
+    android:background="#131a20"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/ingredient_widget_tv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/widget_ingredient_name_tv_padding" />
+</LinearLayout>

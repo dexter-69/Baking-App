@@ -20,8 +20,8 @@ import butterknife.ButterKnife;
 
 public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.RecipeStepsViewHolder> {
 
-    private List<Step> recipeStepList;
     private final Context context;
+    private List<Step> recipeStepList;
     private OnStepClickListener onStepClickListener;
 
     public RecipeStepsAdapter(OnStepClickListener onStepClickListener, List<Step> recipeStepList,
@@ -44,17 +44,18 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
         holder.shortDescriptionTv.setText(currentStep.getShortDescription());
     }
 
-    public interface OnStepClickListener {
-        public void onStepClick(Step clickedStep);
-    }
-
     @Override
     public int getItemCount() {
         return null == recipeStepList ? 0 : recipeStepList.size();
     }
 
+    public interface OnStepClickListener {
+        public void onStepClick(Step clickedStep);
+    }
+
     class RecipeStepsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        @BindView(R.id.short_description_tv) TextView shortDescriptionTv;
+        @BindView(R.id.short_description_tv)
+        TextView shortDescriptionTv;
 
         RecipeStepsViewHolder(View itemView) {
             super(itemView);

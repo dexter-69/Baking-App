@@ -10,7 +10,18 @@ import java.util.List;
  * Created by balra on 10-03-2018.
  */
 
-public class Recipe implements Parcelable{
+public class Recipe implements Parcelable {
+    public static final Creator<Recipe> CREATOR = new Creator<Recipe>() {
+        @Override
+        public Recipe createFromParcel(Parcel in) {
+            return new Recipe(in);
+        }
+
+        @Override
+        public Recipe[] newArray(int size) {
+            return new Recipe[size];
+        }
+    };
     private int id;
     private String name;
     private List<Ingredient> ingredients;
@@ -23,6 +34,21 @@ public class Recipe implements Parcelable{
         this.name = name;
         this.servings = servings;
         this.imageUrl = imageUrl;
+    }
+
+    protected Recipe(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        servings = in.readInt();
+        imageUrl = in.readString();
+        steps = new ArrayList<>();
+        in.readList(steps, Step.class.getClassLoader());
+        ingredients = new ArrayList<>();
+        in.readList(ingredients, Ingredient.class.getClassLoader());
+    }
+
+    public static Creator<Recipe> getCREATOR() {
+        return CREATOR;
     }
 
     public int getId() {
@@ -72,33 +98,6 @@ public class Recipe implements Parcelable{
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
-
-    public static Creator<Recipe> getCREATOR() {
-        return CREATOR;
-    }
-
-    protected Recipe(Parcel in) {
-        id = in.readInt();
-        name = in.readString();
-        servings = in.readInt();
-        imageUrl = in.readString();
-        steps = new ArrayList<>();
-        in.readList(steps, Step.class.getClassLoader());
-        ingredients = new ArrayList<>();
-        in.readList(ingredients, Ingredient.class.getClassLoader());
-    }
-
-    public static final Creator<Recipe> CREATOR = new Creator<Recipe>() {
-        @Override
-        public Recipe createFromParcel(Parcel in) {
-            return new Recipe(in);
-        }
-
-        @Override
-        public Recipe[] newArray(int size) {
-            return new Recipe[size];
-        }
-    };
 
     @Override
     public int describeContents() {

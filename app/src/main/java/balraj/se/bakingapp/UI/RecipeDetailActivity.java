@@ -1,8 +1,6 @@
 package balraj.se.bakingapp.UI;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v7.app.ActionBar;
@@ -10,10 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +19,7 @@ import balraj.se.bakingapp.Model.Ingredient;
 import balraj.se.bakingapp.Model.Recipe;
 import balraj.se.bakingapp.Model.Step;
 import balraj.se.bakingapp.R;
-import balraj.se.bakingapp.RecipeMainActivity;
+import balraj.se.bakingapp.Widget.BakingUpdateService;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -33,21 +29,22 @@ import butterknife.ButterKnife;
 
 public class RecipeDetailActivity extends AppCompatActivity implements RecipeStepsAdapter.OnStepClickListener {
 
+    public static final String ING_LIST_KEY = "ing_list";
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.recipe_detail_rv)
+    RecyclerView stepsRecyclerView;
+    Parcelable listState;
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
      */
     private boolean mTwoPane;
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-    @BindView(R.id.recipe_detail_rv)
-    RecyclerView stepsRecyclerView;
     private RecipeStepsAdapter stepsAdapter;
     private LinearLayoutManager stepsLayoutManager;
     private Recipe mRecipe;
-    Parcelable listState;
     private IngredientsFragment ingredientsFragment;
-    public static final String ING_LIST_KEY = "ing_list";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +52,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         Intent intent = getIntent();
-        List steps = new ArrayList();
+        List<Step> steps = new ArrayList<>();
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -64,22 +61,22 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
             actionBar.setTitle("");
         }
 
-        if(intent.hasExtra("cr")) {
+        if (intent.hasExtra("cr")) {
             mRecipe = intent.getParcelableExtra("cr");
-        } else if(savedInstanceState != null) {
+        } else if (savedInstanceState != null) {
             mRecipe = savedInstanceState.getParcelable("recipe");
         }
 
-        if(mRecipe != null) {
+        if (mRecipe != null) {
             steps = mRecipe.getSteps();
-            if(actionBar != null)
+            if (actionBar != null)
                 actionBar.setTitle(mRecipe.getName());
         }
 
         stepsAdapter = new RecipeStepsAdapter(this, steps,
                 this);
         setUpRecyclerView();
-        if(savedInstanceState != null) {
+        if (savedInstanceState != null) {
             listState = savedInstanceState.getParcelable("list_state");
             stepsRecyclerView.getLayoutManager().onRestoreInstanceState(listState);
         }
@@ -91,7 +88,8 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
             mTwoPane = true;
         }
 
-
+        if (mRecipe != null)
+            BakingUpdateService.startBakingService(this, mRecipe);
 
     }
 

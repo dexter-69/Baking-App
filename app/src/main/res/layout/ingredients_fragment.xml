@@ -5,32 +5,35 @@
     android:minHeight="1000dp"
     android:minWidth="1000dp"
     android:orientation="vertical">
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:gravity="center"
         android:padding="8dp"
         android:text="@string/ingredients"
-        android:gravity="center"
         android:textSize="16sp"
-        android:textStyle="bold"
-        android:layout_margin="2dp"/>
-    <include
-        layout="@layout/tab_ingredient_layout"/>
+        android:textStyle="bold" />
+
+    <include layout="@layout/tab_ingredient_layout" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1.5dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginEnd="6dp"
         android:layout_marginLeft="6dp"
         android:layout_marginRight="6dp"
         android:layout_marginStart="6dp"
-        android:layout_marginEnd="6dp"
-        android:layout_marginBottom="4dp"
         android:layout_marginTop="4dp"
-        android:background="@drawable/recipe_fallback_drawable"/>
+        android:background="@drawable/recipe_fallback_drawable" />
+
     <android.support.v7.widget.RecyclerView
-        android:layout_marginTop="8dp"
         android:id="@+id/ingredient_rv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp" />
 
     <TextView
         android:id="@+id/empty_ingredients_tv"

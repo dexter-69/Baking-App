@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,6 @@ import android.widget.TextView;
 
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
-import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
@@ -57,6 +55,7 @@ public class RecipeDetailFragment extends Fragment {
      * fragment (e.g. upon screen orientation changes).
      */
     private Step mStep;
+
     public RecipeDetailFragment() {
     }
 
@@ -70,9 +69,9 @@ public class RecipeDetailFragment extends Fragment {
         if (args.containsKey(ARG_ITEM_ID)) {
             mStep = args.getParcelable(ARG_ITEM_ID);
             AppCompatActivity activity = (AppCompatActivity) getActivity();
-            if(activity != null) {
+            if (activity != null) {
                 android.support.v7.app.ActionBar actionBar = activity.getSupportActionBar();
-                if(actionBar != null) {
+                if (actionBar != null) {
                     actionBar.setTitle("");
                 }
             }
@@ -118,8 +117,8 @@ public class RecipeDetailFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
         }
         if (Util.SDK_INT > 23) {
             initializePlayer();
@@ -193,11 +192,11 @@ public class RecipeDetailFragment extends Fragment {
                 case Player.STATE_IDLE:
                     break;
                 case Player.STATE_BUFFERING:
-                    if(progressBar != null)
+                    if (progressBar != null)
                         progressBar.setVisibility(View.VISIBLE);
                     break;
                 case Player.STATE_READY:
-                    if(progressBar != null)
+                    if (progressBar != null)
                         progressBar.setVisibility(View.INVISIBLE);
                     break;
                 case Player.STATE_ENDED:

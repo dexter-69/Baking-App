@@ -8,4 +8,5 @@
     <string name="ingredient">Ingredient</string>
     <string name="no_ingredients_found">No Ingredient Found</string>
     <string name="ingredients">Ingredients</string>
+    <string name="appwidget_text">Tap To Add</string>
 </resources>
