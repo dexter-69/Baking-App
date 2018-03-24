@@ -7,18 +7,10 @@
     android:fitsSystemWindows="true"
     tools:context="balraj.se.bakingapp.RecipeMainActivity">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/app_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <include layout="@layout/toolbar" />
-
-    </android.support.design.widget.AppBarLayout>
+    <include layout="@layout/app_bar_main" />
 
     <FrameLayout
-        android:id="@+id/frameLayout"
+        android:id="@+id/frameLayout_main_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -35,6 +27,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center" />
+
+        <include layout="@layout/empty_view_placeholder" />
     </FrameLayout>
 
 </android.support.design.widget.CoordinatorLayout>
