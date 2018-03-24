@@ -10,6 +10,8 @@ import java.util.List;
 
 import balraj.se.bakingapp.Model.Ingredient;
 import balraj.se.bakingapp.Model.Recipe;
+import balraj.se.bakingapp.RecipeMainActivity;
+import balraj.se.bakingapp.UI.RecipeDetailActivity;
 
 /**
  * Created by balra on 16-03-2018.
@@ -17,32 +19,37 @@ import balraj.se.bakingapp.Model.Recipe;
 
 public class BakingUpdateService extends IntentService {
 
-    public static Recipe mRecipe;
+    public static final String APPWIDGET_UPDATE_ACTION = "android.appwidget.action.APPWIDGET_UPDATE";
 
     public BakingUpdateService() {
         super("BakingUpdateService");
     }
 
     public static void startBakingService(Context context, Recipe recipe) {
-        mRecipe = recipe;
         List<Ingredient> ingredientList = recipe.getIngredients();
         Intent intent = new Intent(context, BakingUpdateService.class);
-        intent.putParcelableArrayListExtra("ing_list", (ArrayList<Ingredient>) ingredientList);
+        intent.putParcelableArrayListExtra(RecipeDetailActivity.ING_LIST_KEY,
+                (ArrayList<Ingredient>) ingredientList);
+        intent.putExtra(RecipeMainActivity.RECIPE_KEY, recipe);
         context.startService(intent);
     }
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
         if (null != intent) {
-            List<Ingredient> ingredientList = intent.getExtras().getParcelableArrayList("ing_list");
-            updateBakingServiceAction(ingredientList);
+            List<Ingredient> ingredientList = intent.getExtras()
+                    .getParcelableArrayList(RecipeDetailActivity.ING_LIST_KEY);
+            Recipe recipe = intent.getParcelableExtra(RecipeMainActivity.RECIPE_KEY);
+            updateBakingServiceAction(ingredientList, recipe);
         }
     }
 
-    private void updateBakingServiceAction(List<Ingredient> ingredientList) {
-        Intent intent = new Intent("android.appwidget.action.APPWIDGET_UPDATE2");
-        intent.setAction("android.appwidget.action.APPWIDGET_UPDATE2");
-        intent.putParcelableArrayListExtra("ing_list", (ArrayList<Ingredient>) ingredientList);
+    private void updateBakingServiceAction(List<Ingredient> ingredientList, Recipe recipe) {
+        Intent intent = new Intent(APPWIDGET_UPDATE_ACTION);
+        intent.setAction(APPWIDGET_UPDATE_ACTION);
+        intent.putParcelableArrayListExtra(RecipeDetailActivity.ING_LIST_KEY,
+                (ArrayList<Ingredient>) ingredientList);
+        intent.putExtra(RecipeMainActivity.RECIPE_KEY, recipe);
         sendBroadcast(intent);
     }
 

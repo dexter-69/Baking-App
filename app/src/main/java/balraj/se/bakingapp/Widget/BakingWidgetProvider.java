@@ -13,7 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import balraj.se.bakingapp.Model.Ingredient;
+import balraj.se.bakingapp.Model.Recipe;
 import balraj.se.bakingapp.R;
+import balraj.se.bakingapp.RecipeMainActivity;
 import balraj.se.bakingapp.UI.RecipeDetailActivity;
 
 /**
@@ -23,28 +25,24 @@ import balraj.se.bakingapp.UI.RecipeDetailActivity;
 public class BakingWidgetProvider extends AppWidgetProvider {
 
     static List<Ingredient> ingredientsList = new ArrayList<>();
+    static Recipe mRecipe;
 
-    public static void updateBakingWidgets(Context context, AppWidgetManager appWidgetManager,
-                                           int[] appWidgetIds) {
+    public void updateBakingWidgets(Context context, AppWidgetManager appWidgetManager,
+                                    int[] appWidgetIds) {
         for (int appWidgetId : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId);
         }
     }
 
-    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                                int appWidgetId) {
+    void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
+                         int appWidgetId) {
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.baking_widget);
-        remoteViews.setTextViewText(R.id.ingredient_widget_name_tv, "Ingredient For "
-                + BakingUpdateService.mRecipe.getName());
-
-        Intent intent = new Intent(context, RecipeDetailActivity.class);
-        intent.putExtra("cr", BakingUpdateService.mRecipe);
+        Intent intent = new Intent(context, RecipeMainActivity.class);
         intent.addCategory(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
         intent.addFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_CANCEL_CURRENT);
         remoteViews.setPendingIntentTemplate(R.id.widget_list_view, pendingIntent);
 
         Intent serviceIntent = new Intent(context, BakingListWidgetService.class);
@@ -56,7 +54,7 @@ public class BakingWidgetProvider extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         // There may be multiple widgets active, so update all of them
-        BakingWidgetProvider.updateBakingWidgets(context, appWidgetManager, appWidgetIds);
+        updateBakingWidgets(context, appWidgetManager, appWidgetIds);
     }
 
     @Override
@@ -68,12 +66,16 @@ public class BakingWidgetProvider extends AppWidgetProvider {
         final String intentAction = intent.getAction();
 
         if (null != intentAction) {
-            if (intentAction.equals("android.appwidget.action.APPWIDGET_UPDATE2")) {
+            if (intentAction.equals(BakingUpdateService.APPWIDGET_UPDATE_ACTION)) {
                 Bundle args = intent.getExtras();
                 if (args != null)
-                    ingredientsList = args.getParcelableArrayList("ing_list");
-
-                BakingWidgetProvider.updateBakingWidgets(context, appWidgetManager, appWidgetIds);
+                    ingredientsList = args.getParcelableArrayList(RecipeDetailActivity.ING_LIST_KEY);
+                mRecipe = args.getParcelable(RecipeMainActivity.RECIPE_KEY);
+                //don't update un-till user opens some recipe
+                if (ingredientsList == null || mRecipe == null) {
+                    return;
+                }
+                this.updateBakingWidgets(context, appWidgetManager, appWidgetIds);
                 super.onReceive(context, intent);
             }
         }
