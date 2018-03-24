@@ -10,7 +10,11 @@ import android.view.MenuItem;
 import balraj.se.bakingapp.R;
 
 
-public class RecipeStepDetailActivity extends AppCompatActivity {
+public class RecipeStepDetailActivity extends AppCompatActivity implements RecipeStepDetailFragment.OnStepDetailItemClick {
+
+    public RecipeStepDetailActivity() {
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +43,16 @@ public class RecipeStepDetailActivity extends AppCompatActivity {
             // using a fragment transaction.
             Bundle arguments = new Bundle();
             Intent intent = getIntent();
-            if (intent.hasExtra(RecipeDetailFragment.ARG_ITEM_ID)) {
-                arguments.putParcelable(RecipeDetailFragment.ARG_ITEM_ID,
-                        intent.getParcelableExtra(RecipeDetailFragment.ARG_ITEM_ID));
-                RecipeDetailFragment fragment = new RecipeDetailFragment();
+            if (intent.hasExtra(RecipeStepDetailFragment.ARG_ITEM)) {
+                arguments.putParcelable(RecipeStepDetailFragment.ARG_ITEM,
+                        intent.getParcelableExtra(RecipeStepDetailFragment.ARG_ITEM));
+                arguments.putInt(RecipeStepDetailFragment.STEP_INDEX_KEY,
+                        intent.getIntExtra(RecipeStepDetailFragment.STEP_INDEX_KEY, 0));
+                arguments.putInt(RecipeStepDetailFragment.STEP_SIZE_KEY,
+                        intent.getIntExtra(RecipeStepDetailFragment.STEP_SIZE_KEY, 0));
+                arguments.putBoolean(RecipeStepDetailFragment.TWO_PANE_KEY,
+                        intent.getBooleanExtra(RecipeStepDetailFragment.TWO_PANE_KEY, false));
+                RecipeStepDetailFragment fragment = new RecipeStepDetailFragment();
                 fragment.setArguments(arguments);
                 getSupportFragmentManager().beginTransaction()
                         .add(R.id.recipe_detail_container, fragment)
@@ -67,5 +77,23 @@ public class RecipeStepDetailActivity extends AppCompatActivity {
         return true;
     }
 
+    //handle previous and next buttons click
+    @Override
+    public void onNextPrevClick(int position) {
+        openStepDetails(position);
+    }
 
+    //open fragment on previous and next button click
+    public void openStepDetails(int position) {
+        Bundle arguments = new Bundle();
+        arguments.putParcelable(RecipeStepDetailFragment.ARG_ITEM, RecipeDetailActivity.steps.get(position));
+        arguments.putInt(RecipeStepDetailFragment.STEP_SIZE_KEY, RecipeDetailActivity.stepSize);
+        arguments.putInt(RecipeStepDetailFragment.STEP_INDEX_KEY, position);
+        RecipeStepDetailFragment fragment = new RecipeStepDetailFragment();
+        fragment.setArguments(arguments);
+        this.getSupportFragmentManager().beginTransaction()
+                .replace(R.id.recipe_detail_container, fragment)
+                .commit();
+
+    }
 }
