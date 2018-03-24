@@ -10,7 +10,9 @@ import retrofit2.http.GET;
  * Created by balra on 10-03-2018.
  */
 
+//interface for api calls
 public interface RecipeApi {
+
     @GET("baking.json")
     Call<List<Recipe>> getRecipes();
 }

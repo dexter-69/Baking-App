@@ -40,7 +40,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeAdap
 
     @Override
     public RecipeAdapter.RecipeAdapterViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        //Context context = parent.getContext();
         View view = LayoutInflater.from(this.context).inflate(R.layout.recipe_list_content, parent, false);
         return new RecipeAdapterViewHolder(view);
     }
@@ -57,6 +56,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeAdap
         RequestOptions requestOptions = new RequestOptions();
         requestOptions.error(ContextCompat.getDrawable(context, R.drawable.recipe_fallback_drawable));
 
+        //load image using Glide
         Glide.with(context)
                 .setDefaultRequestOptions(requestOptions)
                 .load(imageUrl)
@@ -93,6 +93,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeAdap
             itemView.setOnClickListener(this);
         }
 
+        //on recipe click send the recipe to calling activity
         @Override
         public void onClick(View view) {
             int position = getAdapterPosition();

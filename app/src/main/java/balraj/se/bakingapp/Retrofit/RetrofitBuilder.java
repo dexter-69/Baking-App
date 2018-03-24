@@ -8,10 +8,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public final class RetrofitBuilder {
+
     private static final String BASE_URL =
             "https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/";
     private static Retrofit retrofit = null;
 
+    //build singleton instance of retrofit
     public static Retrofit getRecipeClient() {
         if (null == retrofit) {
             retrofit = new Retrofit.Builder()

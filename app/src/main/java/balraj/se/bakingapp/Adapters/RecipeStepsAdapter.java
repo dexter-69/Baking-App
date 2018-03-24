@@ -50,7 +50,7 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
     }
 
     public interface OnStepClickListener {
-        public void onStepClick(Step clickedStep);
+        void onStepClick(Step clickedStep, int position);
     }
 
     class RecipeStepsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -63,11 +63,11 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
             itemView.setOnClickListener(this);
         }
 
-
+        //send clicked step to calling activity
         @Override
         public void onClick(View view) {
             int position = getAdapterPosition();
-            onStepClickListener.onStepClick(recipeStepList.get(position));
+            onStepClickListener.onStepClick(recipeStepList.get(position), position);
         }
     }
 }
