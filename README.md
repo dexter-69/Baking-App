@@ -21,21 +21,20 @@
 * Working with layouts for different screen size and orientations.
 
 ## How to run?
-#   Simply import the project in android studio, sync gradle if required and run it.
+   Simply import the project in android studio, sync gradle if required and run it.
 
 ## How to use widgets?
-#   Add widget on homescreen -> open baking app -> select any recipe -> come back and voila! Ingredients are in the widget.
+   Add widget on homescreen -> open baking app -> select any recipe -> come back and voila! Ingredients are in the widget.
 
 ## Screenshots:
 #  Phone (5.2") :
-![screen](../master/art/phone_main.png) ![screen](../master/art/phone_recipe_step_list.png) 
-![screen](../master/art/phone_recipe_step_detail.png)
+<img src="../master/art/phone_main.png" height="550px" width="300px"/> <img src="../master/art/phone_recipe_step_list.png" height="550px" width="300px"/>   <img src="../master/art/phone_recipe_step_detail.png" height="550px" width="300px"/>
 
 # Tablet (9") :
-![screen](../master/art/tablet_main.png) ![screen](../master/art/tablet_recipe_list.png)
+![screen](../master/art/tablet_recipe_list.png)
 
 # Widget :
-![screen](../master/art/widget_base.png) ![screen](../master/art/widget_added.png)
+<img src="../master/art/widget_base.png" height="550px" width="300px"/>  <img src="../master/art/widget_added.png" height="550px" width="300px"/>
 
 ## License :
     MIT License
