@@ -4,6 +4,8 @@
     package="balraj.se.bakingapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -34,7 +36,6 @@
             android:icon="@drawable/ic_launcher_foreground">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE2" />
             </intent-filter>
 
             <meta-data
