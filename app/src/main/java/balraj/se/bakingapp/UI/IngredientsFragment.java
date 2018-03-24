@@ -23,10 +23,6 @@ import balraj.se.bakingapp.R;
 
 public class IngredientsFragment extends DialogFragment {
 
-    private RecyclerView rv;
-    private IngredientAdapter adapter;
-    private TextView emptyReviewTextView;
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -34,7 +30,7 @@ public class IngredientsFragment extends DialogFragment {
         ArrayList<Ingredient> ingredientArrayList = getArguments()
                 .getParcelableArrayList(RecipeDetailActivity.ING_LIST_KEY);
         View rootView = inflater.inflate(R.layout.ingredients_fragment, container);
-        emptyReviewTextView = rootView.findViewById(R.id.empty_ingredients_tv);
+        TextView emptyReviewTextView = rootView.findViewById(R.id.empty_ingredients_tv);
         assert ingredientArrayList != null;
         if (ingredientArrayList.isEmpty()) {
             emptyReviewTextView.setVisibility(View.VISIBLE);
@@ -42,9 +38,9 @@ public class IngredientsFragment extends DialogFragment {
             rootView.setMinimumWidth(500);
             rootView.setMinimumHeight(500);
         } else {
-            rv = rootView.findViewById(R.id.ingredient_rv);
+            RecyclerView rv = rootView.findViewById(R.id.ingredient_rv);
             rv.setLayoutManager(new LinearLayoutManager(this.getActivity()));
-            adapter = new IngredientAdapter(ingredientArrayList, this.getActivity());
+            IngredientAdapter adapter = new IngredientAdapter(ingredientArrayList, this.getActivity());
             rv.setAdapter(adapter);
         }
         return rootView;

@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/card_margin"
     android:alpha="0.9"
+    android:background="?selectableItemBackground"
     card_view:cardCornerRadius="@dimen/card_view_radius"
     card_view:cardElevation="@dimen/card_view_elevation">
 
