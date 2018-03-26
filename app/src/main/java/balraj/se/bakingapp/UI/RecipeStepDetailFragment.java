@@ -7,18 +7,23 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlayerFactory;
@@ -30,6 +35,8 @@ import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
+
+import org.w3c.dom.Text;
 
 import balraj.se.bakingapp.Model.Step;
 import balraj.se.bakingapp.R;
@@ -58,6 +65,9 @@ public class RecipeStepDetailFragment extends Fragment {
     ScrollView scrollView;
     @BindView(R.id.recipe_step_detail)
     TextView recipeStepDetailTv;
+    @BindView(R.id.video_thumbnail_iv)
+    ImageView thumbnailIv;
+
     private SimpleExoPlayerView simpleExoPlayerView;
     private SimpleExoPlayer simpleExoPlayer;
     private boolean playWhenReady = true;
@@ -70,6 +80,9 @@ public class RecipeStepDetailFragment extends Fragment {
     private int stepIndex;
     private int stepListSize;
     private boolean mTwoPane;
+    private static final String PLAYBACK_POS = "playback_pos";
+    private static final String PLAY_WHEN_READY = "play_when_ready";
+    private static final String CURRENT_WINDOW = "curr_window";
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -106,6 +119,20 @@ public class RecipeStepDetailFragment extends Fragment {
                 }
             }
         }
+
+
+    }
+
+    @SuppressLint("CheckResult")
+    private void setRecipeThumbnail(String imageUrl) {
+        RequestOptions requestOptions = new RequestOptions();
+        requestOptions.error(ContextCompat.getDrawable(getContext(), R.drawable.recipe_fallback_drawable));
+
+        //load image using Glide
+        Glide.with(getContext())
+                .setDefaultRequestOptions(requestOptions)
+                .load(imageUrl)
+                .into(thumbnailIv);
     }
 
     @Override
@@ -161,6 +188,18 @@ public class RecipeStepDetailFragment extends Fragment {
                     }
                 });
             }
+
+            if(TextUtils.isEmpty(mStep.getThumbnailURL())) {
+                thumbnailIv.setVisibility(View.GONE);
+            } else {
+                setRecipeThumbnail(mStep.getThumbnailURL());
+            }
+
+            //restore exoplayer view state
+            if(savedInstanceState != null) {
+                playbackPosition = savedInstanceState.getLong(PLAYBACK_POS);
+                playWhenReady = savedInstanceState.getBoolean(PLAY_WHEN_READY);
+            }
         }
         //listen for exo player changes
         componentListener = new ComponentListener();
@@ -188,12 +227,11 @@ public class RecipeStepDetailFragment extends Fragment {
 
         simpleExoPlayer.addListener(componentListener);
         simpleExoPlayerView.setPlayer(simpleExoPlayer);
-
         simpleExoPlayer.setPlayWhenReady(playWhenReady);
-        simpleExoPlayer.seekTo(currentWindow, playbackPosition);
         Uri uri = Uri.parse(mStep.getVideoURL());
         MediaSource mediaSource = buildMediaSource(uri);
-        simpleExoPlayer.prepare(mediaSource, true, false);
+        simpleExoPlayer.prepare(mediaSource, false, false);
+        simpleExoPlayer.seekTo(playbackPosition);
     }
 
     private MediaSource buildMediaSource(Uri uri) {
@@ -216,7 +254,7 @@ public class RecipeStepDetailFragment extends Fragment {
         //if video url is empty show only description and notify user using snackbar
         else if (TextUtils.isEmpty(mStep.getVideoURL())) {
             simpleExoPlayerView.setVisibility(View.GONE);
-            progressBar.setVisibility(View.GONE);
+            progressBar.setVisibility(View.INVISIBLE);
             Snackbar snackbar = Snackbar.make(getView().findViewById(R.id.step_detail_layout_container),
                     R.string.no_video_url_notify, Snackbar.LENGTH_LONG);
             snackbar.show();
@@ -255,18 +293,6 @@ public class RecipeStepDetailFragment extends Fragment {
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
-        releasePlayer();
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        releasePlayer();
-    }
-
-    @Override
     public void onResume() {
         super.onResume();
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE
@@ -275,6 +301,17 @@ public class RecipeStepDetailFragment extends Fragment {
         if ((Util.SDK_INT <= 23 || simpleExoPlayer == null)) {
             initializePlayer();
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if(simpleExoPlayer != null) {
+            playbackPosition = Math.max(simpleExoPlayer.getCurrentPosition(), playbackPosition);
+            outState.putLong(PLAYBACK_POS, playbackPosition);
+            outState.putBoolean(PLAY_WHEN_READY, playWhenReady);
+        }
+
     }
 
     @SuppressLint("InlinedApi")
@@ -311,7 +348,7 @@ public class RecipeStepDetailFragment extends Fragment {
                 case Player.STATE_IDLE:
                     break;
                 case Player.STATE_BUFFERING:
-                    if (progressBar != null)
+                    if (progressBar != null && (mStep != null && !TextUtils.isEmpty(mStep.getVideoURL())))
                         progressBar.setVisibility(View.VISIBLE);
                     break;
                 case Player.STATE_READY:
@@ -319,6 +356,7 @@ public class RecipeStepDetailFragment extends Fragment {
                         progressBar.setVisibility(View.INVISIBLE);
                     break;
                 case Player.STATE_ENDED:
+                    progressBar.setVisibility(View.INVISIBLE);
                     break;
                 default:
                     break;

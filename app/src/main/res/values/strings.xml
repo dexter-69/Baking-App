@@ -18,4 +18,5 @@
     <string name="no_video_url_notify">No Video Url Found</string>
     <string name="widget_header_for_ingredients">Ingredients</string>
     <string name="imgredient_tools_placeholder">Some Ingredient</string>
+    <string name="recipe_step_video_thumbnail">Recipe Step Video Thumbnail</string>
 </resources>
