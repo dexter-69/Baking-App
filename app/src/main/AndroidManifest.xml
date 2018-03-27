@@ -22,8 +22,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UI.RecipeDetailActivity" />
-        <activity android:name=".UI.RecipeStepDetailActivity" />
+        <activity android:name=".UI.RecipeDetailActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+            />
+        <activity android:name=".UI.RecipeStepDetailActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"/>
 
         <service
             android:name=".Widget.BakingListWidgetService"

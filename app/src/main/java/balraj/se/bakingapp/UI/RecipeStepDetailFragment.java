@@ -227,11 +227,11 @@ public class RecipeStepDetailFragment extends Fragment {
 
         simpleExoPlayer.addListener(componentListener);
         simpleExoPlayerView.setPlayer(simpleExoPlayer);
-        simpleExoPlayer.setPlayWhenReady(playWhenReady);
         Uri uri = Uri.parse(mStep.getVideoURL());
         MediaSource mediaSource = buildMediaSource(uri);
         simpleExoPlayer.prepare(mediaSource, false, false);
         simpleExoPlayer.seekTo(playbackPosition);
+        simpleExoPlayer.setPlayWhenReady(playWhenReady);
     }
 
     private MediaSource buildMediaSource(Uri uri) {
