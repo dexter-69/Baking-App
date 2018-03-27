@@ -1,4 +1,4 @@
-package balraj.se.bakingapp.UI;
+package balraj.se.bakingapp.ui;
 
 /**
  * Created by balra on 10-10-2017.
@@ -16,8 +16,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import balraj.se.bakingapp.Adapters.IngredientAdapter;
-import balraj.se.bakingapp.Model.Ingredient;
+import balraj.se.bakingapp.adapters.IngredientAdapter;
+import balraj.se.bakingapp.model.Ingredient;
 import balraj.se.bakingapp.R;
 
 

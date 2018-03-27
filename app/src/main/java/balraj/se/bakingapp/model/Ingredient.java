@@ -1,4 +1,4 @@
-package balraj.se.bakingapp.Model;
+package balraj.se.bakingapp.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

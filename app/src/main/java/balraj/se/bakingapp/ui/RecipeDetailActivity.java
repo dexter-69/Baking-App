@@ -1,4 +1,4 @@
-package balraj.se.bakingapp.UI;
+package balraj.se.bakingapp.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,14 +14,14 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
-import balraj.se.bakingapp.Adapters.RecipeStepsAdapter;
-import balraj.se.bakingapp.Model.Ingredient;
-import balraj.se.bakingapp.Model.Recipe;
-import balraj.se.bakingapp.Model.Step;
+import balraj.se.bakingapp.adapters.RecipeStepsAdapter;
+import balraj.se.bakingapp.model.Ingredient;
+import balraj.se.bakingapp.model.Recipe;
+import balraj.se.bakingapp.model.Step;
 import balraj.se.bakingapp.R;
 import balraj.se.bakingapp.RecipeMainActivity;
-import balraj.se.bakingapp.Utils.DividerItemDecoration;
-import balraj.se.bakingapp.Widget.BakingUpdateService;
+import balraj.se.bakingapp.utils.DividerItemDecoration;
+import balraj.se.bakingapp.widget.BakingUpdateService;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

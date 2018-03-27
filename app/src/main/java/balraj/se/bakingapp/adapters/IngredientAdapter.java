@@ -1,4 +1,4 @@
-package balraj.se.bakingapp.Adapters;
+package balraj.se.bakingapp.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import balraj.se.bakingapp.Model.Ingredient;
+import balraj.se.bakingapp.model.Ingredient;
 import balraj.se.bakingapp.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;

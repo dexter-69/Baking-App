@@ -1,8 +1,8 @@
-package balraj.se.bakingapp.Retrofit;
+package balraj.se.bakingapp.retrofit;
 
 import java.util.List;
 
-import balraj.se.bakingapp.Model.Recipe;
+import balraj.se.bakingapp.model.Recipe;
 import retrofit2.Call;
 import retrofit2.http.GET;
 

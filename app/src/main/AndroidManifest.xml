@@ -22,20 +22,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UI.RecipeDetailActivity"
+        <activity android:name=".ui.RecipeDetailActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
             />
-        <activity android:name=".UI.RecipeStepDetailActivity"
+        <activity android:name=".ui.RecipeStepDetailActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"/>
 
         <service
-            android:name=".Widget.BakingListWidgetService"
+            android:name=".widget.BakingListWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
-        <service android:name=".Widget.BakingUpdateService" />
+        <service android:name=".widget.BakingUpdateService" />
 
         <receiver
-            android:name=".Widget.BakingWidgetProvider"
+            android:name=".widget.BakingWidgetProvider"
             android:icon="@drawable/ic_launcher_foreground">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />

@@ -1,4 +1,4 @@
-package balraj.se.bakingapp.Widget;
+package balraj.se.bakingapp.widget;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -12,11 +12,11 @@ import android.widget.RemoteViews;
 import java.util.ArrayList;
 import java.util.List;
 
-import balraj.se.bakingapp.Model.Ingredient;
-import balraj.se.bakingapp.Model.Recipe;
+import balraj.se.bakingapp.model.Ingredient;
+import balraj.se.bakingapp.model.Recipe;
 import balraj.se.bakingapp.R;
 import balraj.se.bakingapp.RecipeMainActivity;
-import balraj.se.bakingapp.UI.RecipeDetailActivity;
+import balraj.se.bakingapp.ui.RecipeDetailActivity;
 
 /**
  * Created by balra on 16-03-2018.

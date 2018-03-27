@@ -1,4 +1,4 @@
-package balraj.se.bakingapp.Utils;
+package balraj.se.bakingapp.utils;
 
 /**
  * Created by balra on 20-03-2018.

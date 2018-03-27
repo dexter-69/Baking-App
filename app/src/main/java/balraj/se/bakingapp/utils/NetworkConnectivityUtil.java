@@ -1,4 +1,4 @@
-package balraj.se.bakingapp.Utils;
+package balraj.se.bakingapp.utils;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

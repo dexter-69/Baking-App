@@ -1,4 +1,4 @@
-package balraj.se.bakingapp.Adapters;
+package balraj.se.bakingapp.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -16,7 +16,7 @@ import com.bumptech.glide.request.RequestOptions;
 import java.util.ArrayList;
 import java.util.List;
 
-import balraj.se.bakingapp.Model.Recipe;
+import balraj.se.bakingapp.model.Recipe;
 import balraj.se.bakingapp.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;

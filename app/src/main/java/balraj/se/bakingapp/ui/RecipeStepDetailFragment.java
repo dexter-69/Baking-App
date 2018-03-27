@@ -1,4 +1,4 @@
-package balraj.se.bakingapp.UI;
+package balraj.se.bakingapp.ui;
 
 import android.annotation.SuppressLint;
 import android.content.res.Configuration;
@@ -10,7 +10,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,11 +35,9 @@ import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
-import org.w3c.dom.Text;
-
-import balraj.se.bakingapp.Model.Step;
+import balraj.se.bakingapp.model.Step;
 import balraj.se.bakingapp.R;
-import balraj.se.bakingapp.Utils.NetworkConnectivityUtil;
+import balraj.se.bakingapp.utils.NetworkConnectivityUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;

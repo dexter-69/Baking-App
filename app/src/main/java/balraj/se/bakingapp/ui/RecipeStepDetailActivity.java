@@ -1,4 +1,4 @@
-package balraj.se.bakingapp.UI;
+package balraj.se.bakingapp.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
