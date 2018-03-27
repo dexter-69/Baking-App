@@ -284,6 +284,7 @@ public class RecipeStepDetailFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
+        playWhenReady = simpleExoPlayer.getPlayWhenReady();
         if (Util.SDK_INT <= 23) {
             releasePlayer();
         }
@@ -325,7 +326,6 @@ public class RecipeStepDetailFragment extends Fragment {
         if (simpleExoPlayer != null) {
             playbackPosition = simpleExoPlayer.getCurrentPosition();
             currentWindow = simpleExoPlayer.getCurrentWindowIndex();
-            playWhenReady = simpleExoPlayer.getPlayWhenReady();
             simpleExoPlayer.removeListener(componentListener);
             simpleExoPlayer.release();
             simpleExoPlayer = null;
